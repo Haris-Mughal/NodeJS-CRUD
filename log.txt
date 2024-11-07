@@ -1,0 +1,18 @@
+1730982101808: GET - /api/users
+1730983478152: POST - /api/users
+1730983509810: POST - /api/users
+1730983539060: PATCH - /api/users
+1730983548383: GET - /api/users
+1730983646986: GET - /api/users
+1730983683546: GET - /api/users
+1730983845996: GET - /api/users
+1730984230732: GET - /api/users
+1730984271549: GET - /api/users
+1730984297944: GET - /api/users
+1730984511924: POST - /api/users || /api/users
+1730984541598: POST - /api/users || /api/users
+1730984609679: GET - /api/users
+1730987223436: GET - /api/users
+1730987338028: GET - /api/users
+1730987389899: GET - /api/users
+1730987469295: GET - /api/users
