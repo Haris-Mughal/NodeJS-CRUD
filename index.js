@@ -1,8 +1,6 @@
 const express = require("express");
 const fs = require("fs");
-const path = require("path");
 const mongoose = require("mongoose");
-// const users = require("./MOCK_DATA.json");
 const app = express();
 
 const PORT = 8000;
@@ -41,38 +39,15 @@ const userSchema = new mongoose.Schema(
 
 const User = mongoose.model("user", userSchema);
 
-// app.use((req, res, next) => {
-//     req.mw = "Middleware";
-//     console.log(`Hello, ${req.mw}!`);
-//     next();
-// });
-
 app.use((req, res, next) => {
     fs.appendFile(
         "log.txt",
-        `\n${Date.now()}: ${req.method} - ${req.path}`,
+        `\n${Date.now()}: ${req.method} - ${req.url}`,
         (err, data) => {
             next();
         }
     );
 });
-
-// app.use((req, res, next) => {
-//     console.log(`Bye, ${req.mw}!`);
-//     next();
-// });
-
-const writeToFile = (data, res) => {
-    fs.writeFile(
-        path.join(__dirname, "MOCK_DATA.json"),
-        JSON.stringify(data, null, 2),
-        (err) => {
-            if (err) {
-                return res.status(500).json({ status: "Failed to write data" });
-            }
-        }
-    );
-};
 
 app.get("/users", async (req, res) => {
     const allDBUsers = await User.find({});
@@ -123,7 +98,6 @@ app.route("/api/users")
 
         if (userIndex !== -1) {
             User[userIndex] = { ...User[userIndex], ...updatedData };
-            writeToFile(User, res);
             res.json({
                 status: "Updated successfully",
                 data: User[userIndex],
@@ -138,7 +112,6 @@ app.route("/api/users")
 
         if (userIndex !== -1) {
             const deletedUser = User.splice(userIndex, 1);
-            writeToFile(User, res);
             res.json({ status: "Deleted successfully", data: deletedUser });
         } else {
             res.status(404).json({ status: "User not found" });
